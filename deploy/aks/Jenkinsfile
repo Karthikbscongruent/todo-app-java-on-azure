@@ -1,6 +1,6 @@
 node('master') {
 
-    def servicePrincipalId = "8eeb2cac-9d8f-4062-9468-145a049d1335"
+    def servicePrincipalId = "64adacb4-6b32-4392-8f8d-3913685fa7c3"
     def resourceGroup = 'MC_KarJenkinsRG_KarKubCluster_southindia'
     def aks = 'KarKubCluster'
 
