@@ -41,15 +41,17 @@ node('master') {
     }
 
     stage('Docker Image') {
-        withDockerRegistry([credentialsId: dockerCredentialId, url: "http://${dockerRegistry}"]) {
+        // withDockerRegistry([credentialsId: dockerCredentialId, url: "http://${dockerRegistry}"]) {
             dir('target') {
                 sh """                
-                    cp -f ../src/aks/Dockerfile .                    
+                    cp -f ../src/aks/Dockerfile .   
+                    
+                    docker login KarACR.azurecr.io -u karthikbs -p Solution@1234
                     docker build "${env.IMAGE_TAG}" -T .
                     docker push "${env.IMAGE_TAG}" -T
                 """
             }
-        }
+        // }
     }
 
     stage('Check Env') {
