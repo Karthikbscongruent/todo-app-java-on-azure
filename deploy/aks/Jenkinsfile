@@ -44,7 +44,7 @@ node('master') {
         // withDockerRegistry([credentialsId: dockerCredentialId, url: "http://${dockerRegistry}"]) {
             dir('target') {
                 sh """                
-                    cp -f ../src/aks/Dockerfile .   
+                    cp -f ../Dockerfile .   
                     
                     docker login KarACR.azurecr.io -u karthikbs -p Solution@1234
                     docker build "${env.IMAGE_TAG}" -T .
