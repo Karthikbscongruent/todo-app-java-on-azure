@@ -43,10 +43,12 @@ node('master') {
     stage('Docker Image') {
         withDockerRegistry([credentialsId: dockerCredentialId, url: "http://${dockerRegistry}"]) {
             dir('target') {
-                sh """
+                sh """                
                     cp -f ../src/aks/Dockerfile .
-                    winpty docker build -t "${env.IMAGE_TAG}" .
-                    winpty docker push "${env.IMAGE_TAG}"
+                    test -t 1 && USE_TTY="-t"                     
+                    
+                    docker build ${USE_TTY} "${env.IMAGE_TAG}" .
+                    docker push "${env.IMAGE_TAG}"
                 """
             }
         }
