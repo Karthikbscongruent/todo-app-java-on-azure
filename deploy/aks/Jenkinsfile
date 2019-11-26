@@ -11,7 +11,7 @@ node('master') {
     def dockerRegistry = 'karacr.azurecr.io'
     def imageName = "todo-app:${env.BUILD_NUMBER}"
     env.IMAGE_TAG = "${dockerRegistry}/${imageName}"
-    def dockerCredentialId = '=xzFon5J2TmEvOCGgCjSeHFAdh36HIPx'
+    def dockerCredentialId = "=xzFon5J2TmEvOCGgCjSeHFAdh36HIPx"
 
     def currentEnvironment = 'blue'
     def newEnvironment = { ->
@@ -41,17 +41,16 @@ node('master') {
     }
 
     stage('Docker Image') {
-        // withDockerRegistry([credentialsId: dockerCredentialId, url: "http://${dockerRegistry}"]) {
+         withDockerRegistry([credentialsId: dockerCredentialId, url: "http://${dockerRegistry}"]) {
             dir('target') {
                 sh """                
                     cp -f ../Dockerfile .   
-                    
-                    docker login KarACR.azurecr.io -u karthikbs -p Solution@1234
+                                        
                     docker build "${env.IMAGE_TAG}" -T .
                     docker push "${env.IMAGE_TAG}" -T
                 """
             }
-        // }
+         }
     }
 
     stage('Check Env') {
