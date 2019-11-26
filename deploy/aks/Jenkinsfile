@@ -44,11 +44,11 @@ node('master') {
          withDockerRegistry([credentialsId: dockerCredentialId, url: "http://${dockerRegistry}"]) {
             dir('target') {
                 sh """                
-                    cp -f ../Dockerfile .   
-                                        
-                    docker build "${env.IMAGE_TAG}" -T .
-                    docker push "${env.IMAGE_TAG}" -T
-                """
+                    cp -f ../Dockerfile .
+
+                    docker build "${env.IMAGE_TAG}" .
+                    docker push "${env.IMAGE_TAG}" 
+                    """
             }
          }
     }
