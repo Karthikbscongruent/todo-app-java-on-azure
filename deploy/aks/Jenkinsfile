@@ -44,11 +44,9 @@ node('master') {
         withDockerRegistry([credentialsId: dockerCredentialId, url: "http://${dockerRegistry}"]) {
             dir('target') {
                 sh """                
-                    cp -f ../src/aks/Dockerfile .
-                    test -t 1 && USE_TTY="-t"                     
-                    
-                    docker build ${USE_TTY} "${env.IMAGE_TAG}" .
-                    docker push "${env.IMAGE_TAG}"
+                    cp -f ../src/aks/Dockerfile .                    
+                    docker -t build "${env.IMAGE_TAG}" .
+                    docker -t push "${env.IMAGE_TAG}"
                 """
             }
         }
